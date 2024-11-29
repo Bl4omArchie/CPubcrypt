@@ -2,8 +2,8 @@
 
 
 
-Crypt_RSA *new_rsa() {
-    Crypt_RSA *new_key = (*Crypt_RSA)malloc(sizeof(*Crypt_RSA));
+rsa_ctx *new_rsa() {
+    rsa_ctx *new_key = (rsa_ctx*)malloc(sizeof(rsa_ctx));
     
     new_key->key_bit_size = 0;
     new_key->public_modulus = BN_new();
@@ -15,17 +15,22 @@ Crypt_RSA *new_rsa() {
     return new_key;
 }
 
-void init_rsa(Crypt_RSA *key) {
-    key = (*Crypt_RSA)malloc(sizeof(*Crypt_RSA));
+int init_rsa(rsa_ctx *key) {
+    if (key != NULL)
+        return 0;
+
+    key = (rsa_ctx*)malloc(sizeof(rsa_ctx));
     key->key_bit_size = 0;
     key->public_modulus = BN_new();
     key->public_exponent = BN_new();
     key->private_exponent = BN_new();
     key->dQ = BN_new();
     key->qI = BN_new();
+
+    return 1;
 }
 
-int set_public_mod(Crypt_RSA *key, BIGNUM *n) {
+int set_public_mod(rsa_ctx *key, BIGNUM *n) {
     int bit_size = sizeof(n)/8;
     if (key == NULL || bit_size <= 2048 || bit_size > 8196)
         return -1;
@@ -34,18 +39,34 @@ int set_public_mod(Crypt_RSA *key, BIGNUM *n) {
     return 1;
 }
 
-int set_public_exp(Crypt_RSA *key, BIGNUM *e) {
+int set_public_exp(rsa_ctx *key, BIGNUM *e) {
     return 1;
 }
 
-int set_private_exp(Crypt_RSA *key, BIGNUM *d) {
+int set_private_exp(rsa_ctx *key, BIGNUM *d) {
 
 }
 
-int set_dQ(Crypt_RSA *key, BIGNUM *dQ) {
+int set_dQ(rsa_ctx *key, BIGNUM *dQ) {
 
 }
 
-int set_qI(Crypt_RSA *key, BIGNUM *qI) {
+int set_qI(rsa_ctx *key, BIGNUM *qI) {
+
+}
+
+int verify_key_validity(rsa_ctx *key) {
+
+}
+
+int encrypt(rsa_ctx *key, const char *pt, const char *ct, size_t pt_size, size_t ct_size) {
+
+}
+
+int decrypt(rsa_ctx *key, const char *ct, const char *pt, size_t ct_size, size_t pt_size) {
+
+}
+
+rsa_ctx *generate(int key_bit_size) {
 
 }
