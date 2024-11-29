@@ -17,6 +17,7 @@ typedef struct _rsa_keypair_context {
 } rsa_ctx;
 
 
+// *** rsa_struct.c ***
 rsa_ctx *new_rsa();
 int init_rsa(rsa_ctx *key);
 int set_public_mod(rsa_ctx *key, BIGNUM *n);
@@ -24,10 +25,19 @@ int set_public_exp(rsa_ctx *key, BIGNUM *e);
 int set_private_exp(rsa_ctx *key, BIGNUM *d);
 int set_dQ(rsa_ctx *key, BIGNUM *dQ);
 int set_qI(rsa_ctx *key, BIGNUM *qI);
+int destroy_key(rsa_ctx *key);
 
+
+// *** rsa_crit.c ***
+int is_valid_mod(BIGNUM *n);
+int is_valid_pubexp(BIGNUM *e);
+int is_valid_pvexp(BIGNUM *d);
+int is_valid_key_size(int key_size);
+
+
+// *** rsa.c ***
 rsa_ctx *generate(int key_bit_size);
 int verify_key_validity(rsa_ctx *key);
-
 int encrypt(rsa_ctx *key, const char *pt, const char *ct, size_t pt_size, size_t ct_size);
 int decrypt(rsa_ctx *key, const char *ct, const char *pt, size_t ct_size, size_t pt_size);
 

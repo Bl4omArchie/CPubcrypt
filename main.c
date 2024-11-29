@@ -9,5 +9,7 @@ int main() {
 
     rsa_ctx *key = new_rsa();
 
+    destroy_key(key);
+
     return 0;
 }
